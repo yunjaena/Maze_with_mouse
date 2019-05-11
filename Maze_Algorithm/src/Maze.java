@@ -28,6 +28,7 @@ public class Maze {
             System.out.println(e);
         }
 
+
         xSize = readMaze.get(0).length();
         ySize = readMaze.size();
 

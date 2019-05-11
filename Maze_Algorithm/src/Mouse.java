@@ -6,7 +6,6 @@ public class Mouse {
     private Maze maze;
     private Stack<Point> bifurcation;
 
-
     public Mouse(Maze maze) {
         this.maze = maze;
         energy = maze.getxSize() * maze.getySize() * 2;
