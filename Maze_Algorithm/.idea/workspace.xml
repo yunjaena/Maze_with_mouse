@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b427356a-8226-4ac2-8344-065b619ba72d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mouse.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,20 +28,45 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Maze.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Point.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="61" column="24" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+            <state>
+              <caret column="13" selection-start-column="13" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Maze.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="621">
+              <caret line="89" column="1" lean-forward="true" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+              <folding>
+                <element signature="e#1944#1945#0" expanded="true" />
+                <element signature="e#2017#2018#0" expanded="true" />
+                <element signature="e#2074#2075#0" expanded="true" />
+                <element signature="e#2147#2148#0" expanded="true" />
+                <element signature="e#2204#2205#0" expanded="true" />
+                <element signature="e#2277#2278#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Mouse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="18" selection-start-column="18" selection-end-column="18" />
+            <state relative-caret-position="602">
+              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+              <folding>
+                <element signature="e#656#657#0" expanded="true" />
+                <element signature="e#677#678#0" expanded="true" />
+                <element signature="e#722#723#0" expanded="true" />
+                <element signature="e#748#749#0" expanded="true" />
+                <element signature="e#786#787#0" expanded="true" />
+                <element signature="e#811#812#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -72,6 +98,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Maze.java" />
+        <option value="$PROJECT_DIR$/src/Mouse.java" />
       </list>
     </option>
   </component>
@@ -110,7 +137,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557543208547" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557544795070" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -158,11 +185,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231000" />
+    <option name="totallyTimeSpent" value="1756000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -199,17 +225,20 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Mouse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Maze_Algorithm.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -222,8 +251,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Maze.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="61" column="24" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+        <state relative-caret-position="621">
+          <caret line="89" column="1" lean-forward="true" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+          <folding>
+            <element signature="e#1944#1945#0" expanded="true" />
+            <element signature="e#2017#2018#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#2147#2148#0" expanded="true" />
+            <element signature="e#2204#2205#0" expanded="true" />
+            <element signature="e#2277#2278#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Mouse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="e#656#657#0" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#722#723#0" expanded="true" />
+            <element signature="e#748#749#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#811#812#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
