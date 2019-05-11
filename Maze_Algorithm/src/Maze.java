@@ -6,94 +6,85 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Maze {
-	private int maze[][];
-	private int xSize;
-	private int ySize;
+    private int maze[][];
+    private int xSize;
+    private int ySize;
 
-	public void reaedMaze(String fileName) {
+    public void reaedMaze(String fileName) {
 
-		ArrayList<String> readMaze = new ArrayList<>();
-		try {
-			// ÆÄÀÏ °´Ã¼ »ý¼º
-			File file = new File(fileName);
-			// ÀÔ·Â ½ºÆ®¸² »ý¼º
-			FileReader filereader = new FileReader(file);
-			// ÀÔ·Â ¹öÆÛ »ý¼º
-			BufferedReader bufReader = new BufferedReader(filereader);
-			String line = "";
-			while ((line = bufReader.readLine()) != null) {
-				readMaze.add(line);
-			}
-			// .readLine()Àº ³¡¿¡ °³Çà¹®ÀÚ¸¦ ÀÐÁö ¾Ê´Â´Ù.
-			bufReader.close();
-		} catch (FileNotFoundException e) {
-			// TODO: handle exception
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+        ArrayList<String> readMaze = new ArrayList<>();
+        try {
+            File file = new File(fileName);
+            FileReader filereader = new FileReader(file);
+            BufferedReader bufReader = new BufferedReader(filereader);
+            String line = "";
+            while ((line = bufReader.readLine()) != null) {
+                readMaze.add(line);
+            }
+            bufReader.close();
+        } catch (FileNotFoundException e) {
+            // TODO: handle exception
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
-		xSize = readMaze.get(0).length();
-		ySize = readMaze.size();
+        xSize = readMaze.get(0).length();
+        ySize = readMaze.size();
 
-		maze = new int[ySize][xSize];
+        maze = new int[ySize][xSize];
 
-		for (int i = 0; i < readMaze.size(); i++) {
-			for (int j = 0; j < xSize; j++) {
-				maze[i][j] = Character.getNumericValue(readMaze.get(i).charAt(j));
-			}
-		}
+        for (int i = 0; i < readMaze.size(); i++) {
+            for (int j = 0; j < xSize; j++) {
+                maze[i][j] = Character.getNumericValue(readMaze.get(i).charAt(j));
+            }
+        }
 
-	}
-	
-	public void printMaze()
-	{
-		for (int i = 0; i < ySize; i++) {
-			for (int j = 0; j < xSize; j++) {
-				switch(maze[i][j])
-				{
-				case 0:
-					System.out.print(" ");
-					break;
-				case 1:
-					System.out.print("¡á");
-					break;
-				case 2:
-					System.out.print("-");
-					break;
-				case 3:
-					System.out.print("¡Ù");
-					break;
-				case xSize:
-					
-				
-			}
-		}
-	}
-	
-	
+    }
 
-	public int[][] getMaze() {
-		return maze;
-	}
+    public void printMaze() {
+        for (int i = 0; i < ySize; i++) {
+            for (int j = 0; j < xSize; j++) {
+                switch (maze[i][j]) {
+                    case 0:
+                        System.out.print(" ");
+                        break;
+                    case 1:
+                        System.out.print("â– ");
+                        break;
+                    case 2:
+                        System.out.print("-");
+                        break;
+                    case 3:
+                        System.out.print("â˜†");
+                        break;
+                }
+            }
+            System.out.println();
+        }
+    }
 
-	public void setMaze(int[][] maze) {
-		this.maze = maze;
-	}
+    public int[][] getMaze() {
+        return maze;
+    }
 
-	public int getxSize() {
-		return xSize;
-	}
+    public void setMaze(int[][] maze) {
+        this.maze = maze;
+    }
 
-	public void setxSize(int xSize) {
-		this.xSize = xSize;
-	}
+    public int getxSize() {
+        return xSize;
+    }
 
-	public int getySize() {
-		return ySize;
-	}
+    public void setxSize(int xSize) {
+        this.xSize = xSize;
+    }
 
-	public void setySize(int ySize) {
-		this.ySize = ySize;
-	}
+    public int getySize() {
+        return ySize;
+    }
+
+    public void setySize(int ySize) {
+        this.ySize = ySize;
+    }
 
 }
