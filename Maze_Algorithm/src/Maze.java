@@ -14,17 +14,17 @@ public class Maze {
 
 		ArrayList<String> readMaze = new ArrayList<>();
 		try {
-			// ÆÄÀÏ °´Ã¼ »ý¼º
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			File file = new File(fileName);
-			// ÀÔ·Â ½ºÆ®¸² »ý¼º
+			// ï¿½Ô·ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			FileReader filereader = new FileReader(file);
-			// ÀÔ·Â ¹öÆÛ »ý¼º
+			// ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			BufferedReader bufReader = new BufferedReader(filereader);
 			String line = "";
 			while ((line = bufReader.readLine()) != null) {
 				readMaze.add(line);
 			}
-			// .readLine()Àº ³¡¿¡ °³Çà¹®ÀÚ¸¦ ÀÐÁö ¾Ê´Â´Ù.
+			// .readLine()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½à¹®ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			bufReader.close();
 		} catch (FileNotFoundException e) {
 			// TODO: handle exception
@@ -45,33 +45,26 @@ public class Maze {
 
 	}
 	
-	public void printMaze()
-	{
+	public void printMaze() {
 		for (int i = 0; i < ySize; i++) {
 			for (int j = 0; j < xSize; j++) {
-				switch(maze[i][j])
-				{
-				case 0:
-					System.out.print(" ");
-					break;
-				case 1:
-					System.out.print("¡á");
-					break;
-				case 2:
-					System.out.print("-");
-					break;
-				case 3:
-					System.out.print("¡Ù");
-					break;
-				case xSize:
-					
-				
+				switch (maze[i][j]) {
+					case 0:
+						System.out.print(" ");
+						break;
+					case 1:
+						System.out.print("ï¿½ï¿½");
+						break;
+					case 2:
+						System.out.print("-");
+						break;
+					case 3:
+						System.out.print("ï¿½ï¿½");
+						break;
+				}
 			}
 		}
 	}
-	
-	
-
 	public int[][] getMaze() {
 		return maze;
 	}
