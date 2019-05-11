@@ -5,12 +5,10 @@ public class Mouse {
     private double mana;
     private Maze maze;
     private Stack<Point> bifurcation;
-    public final int[][] direction ={{0,1},{1,0},{0,-1},{-1,0}};
-
 
     public Mouse(Maze maze) {
         this.maze = maze;
-        energy = 100; //TODO -> 에너지 수정
+        energy = maze.getxSize() * maze.getySize() * 2;
     }
 
     public int getEnergy() {
@@ -31,5 +29,17 @@ public class Mouse {
 
     public boolean isTeleportPossible() {
         return mana >= 50;
+    }
+
+    public void decreaseEnergy() {
+        energy--;
+    }
+
+    public void increaseMana() {
+        mana += 0.1;
+    }
+
+    public void useMana() {
+        mana -= 50.0;
     }
 }
