@@ -22,22 +22,13 @@ public class Algorithm {
     public boolean Solve() {
         startX = 1;
         startY = 0;
-        System.out.println(Math.sqrt(Math.sqrt(maze.getxSize()*maze.getySize())));
         boolean result = false;
-        if (MoveTo(startX, startY, Direction.NORTH))
-            result = true;
-        else if (MoveTo(startX, startY, Direction.SOUTH))
-            result = true;
-        else if (MoveTo(startX, startY, Direction.EAST))
-            result = true;
-        else if (MoveTo(startX, startY, Direction.WEST))
-            result = true;
-
+        if (MoveTo(startX, startY)) result = true;
         return result;
     }
 
 
-    private boolean MoveTo(int x, int y, Direction direction) {
+    private boolean MoveTo(int x, int y) {
         //에너지 소진시 쥐 사망
         if (mouseEvent.isMouseDIe()) return true;
         //경로에 저장 후 쥐 이동
@@ -64,7 +55,6 @@ public class Algorithm {
             boolean isEndOfMaze = true;
             //현 시점에서 텔레포트 사용 여부 결정
             boolean usingTeleport = teleportPossible();
-            System.out.println(getDistance());
             //막다른 길의 마지막 칸을 버리고 3(막다른 길)로 표시
             Route.pop();
             maze.getMaze()[y][x] = 3;
@@ -112,12 +102,12 @@ public class Algorithm {
                 }
             }
         }
-
+        //다음 길 탐색
         for (Direction dir : Direction.values()) {
             if (!GetNextStep(x, y, dir)) {
                 continue;
             }
-            if (MoveTo(nextX, nextY, Direction.EAST)) {
+            if (MoveTo(nextX, nextY)) {
                 return true;
             }
         }
@@ -126,32 +116,26 @@ public class Algorithm {
 
     //해당 좌표가 미로의 범위를 넘어섰는지 검사하는 메소드
     private boolean isNotOutOfArray(int x, int y) {
-        if (x >= 0 && y >= 0 && x < maze.getxSize() && y < maze.getySize())
-            return true;
-        else
-            return false;
+        if (x >= 0 && y >= 0 && x < maze.getxSize() && y < maze.getySize()) return true;
+        else return false;
     }
 
-    //분기점인지 검사하는 메소드
+    //해당 좌표가 분기점인지 검사하는 메소드
     private boolean isBranch(int x, int y) {
-        int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int count = 0;
-        for (int i = 0; i < direction.length; i++) {
-            if (!isNotOutOfArray(x + direction[i][1], y + direction[i][0]) ||
-                    (maze.getMaze()[y + direction[i][0]][x + direction[i][1]] == 1)) count++;
+        for (Direction dir : Direction.values()) {
+            if (!isNotOutOfArray(dir.getNextX(x), dir.getNextY(y)) || (maze.getMaze()[dir.getNextY(y)][dir.getNextX(x)] == 1)) count++;
         }
-        if (count > 1) return false;
+        if(count > 1) return false;
         else return true;
     }
 
-    //막다른 길인지 검사하는 메소드
+    //해당 좌표가 막다른 길인지 검사하는 메소드
     private boolean isEndMaze(int x, int y) {
-        int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int count = 0;
         if (x == 1 && y == 0) return false;
-        for (int i = 0; i < direction.length; i++) {
-            if (!isNotOutOfArray(x + direction[i][0], y + direction[i][1]) || maze.getMaze()[y + direction[i][1]][x + direction[i][0]] == 1)
-                count++;
+        for (Direction dir : Direction.values()) {
+            if (!isNotOutOfArray(dir.getNextX(x), dir.getNextY(y)) || maze.getMaze()[dir.getNextY(y)][dir.getNextX(x)] == 1) count++;
         }
         if (count >= 3) return true;
         else return false;
@@ -159,12 +143,10 @@ public class Algorithm {
 
     //분기 폐쇄 여부를 결정하는 메소드
     private boolean deleteBranch(int x, int y) {
-        int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int count = 0;
-        for (int i = 0; i < direction.length; i++) {
-            if (isNotOutOfArray(x + direction[i][1], y + direction[i][0])) {
-                if (maze.getMaze()[y + direction[i][0]][x + direction[i][1]] == 2 || maze.getMaze()[y + direction[i][0]][x + direction[i][1]] == 0)
-                    count++;
+        for (Direction dir : Direction.values()) {
+            if (isNotOutOfArray(dir.getNextX(x), dir.getNextY(y))) {
+                if (maze.getMaze()[dir.getNextY(y)][dir.getNextX(x)] == 2 || maze.getMaze()[dir.getNextY(y)][dir.getNextX(x)] == 0) count++;
             }
         }
         if (count <= 1) return true;
@@ -174,9 +156,7 @@ public class Algorithm {
     //텔레포트 가능 여부를 반환하는 메소드
     private boolean teleportPossible() {
         double threshold = Math.sqrt(Math.sqrt(maze.getxSize()*maze.getySize()));
-        for(int i = 0; i <= Distance.size() - 1; i++){
-            threshold += Distance.get(i);
-        }
+        for(int i = 0; i <= Distance.size() - 1; i++) threshold += Distance.get(i);
         threshold /= (Distance.size() + 1);
         if(mouseEvent.getMana() >= Mouse.USING_MANA && !Branch.empty()){
             //여분의 텔레포트 마나가 있으면 2보다 긴 거리에서 사용
@@ -196,7 +176,6 @@ public class Algorithm {
     //막다른 길에서 가장 가까운 유효분기까지의 거리를 반환하는 함수
     private int getDistance() {
         int d = 0, count;
-        int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         for (int i = Branch.size() - 1; i > -1; i--) {
             for (int j = Route.size() - 1 - d; j > -1; j--) {
                 if ((Route.get(j).getX() == Branch.get(i).getX()) && (Route.get(j).getY() == Branch.get(i).getY())) {
@@ -205,20 +184,17 @@ public class Algorithm {
                 }
             }
             count = 0;
-            for (int k = 0; k < direction.length; k++) {
-                if (isNotOutOfArray(Branch.get(i).getX() + direction[k][0], Branch.get(i).getY() + direction[k][0])) {
-
+            for (Direction dir : Direction.values()) {
+                if (isNotOutOfArray(dir.getNextX(Branch.get(i).getX()), dir.getNextY(Branch.get(i).getY()))) {
                     //지나가지 않은 길이 하나라도 존재하면 무조건 유효한 분기
-                    if (maze.getMaze()[Branch.get(i).getY() + direction[k][0]][Branch.get(i).getX() + direction[k][1]] == 0){
+                    if (maze.getMaze()[dir.getNextY(Branch.get(i).getY())][dir.getNextX(Branch.get(i).getX())] == 0){
                         count = -1;
                         break;
                     }
                     //해당 분기가 무효한 분기(사방에 지나간 길이 2개)인지 검사
                     //막다른 길에서 판단하기 때문에 지나간 길이 1개가 아니라 2개일 때 무효분기
                     //원래라면 되돌아가면서 지나간 길 한 곳을 막다른 길(3)으로 바꾸기 때문
-                    else if(maze.getMaze()[Branch.get(i).getY() + direction[k][0]][Branch.get(i).getX() + direction[k][1]] == 2){
-                        count++;
-                    }
+                    else if(maze.getMaze()[dir.getNextY(Branch.get(i).getY())][dir.getNextX(Branch.get(i).getX())] == 2) count++;
                 }
             }
             if(count != 2) break;
@@ -226,41 +202,12 @@ public class Algorithm {
         return d;
     }
 
-    private boolean GetNextStep(int x, int y, Direction direction) {
-        switch (direction) {
-            case NORTH:
-                if (!isNotOutOfArray(x, y - 1)) return false;
-                else if (maze.getMaze()[y - 1][x] >= 1) return false;
-                nextX = x;
-                nextY = y - 1;
-                break;
-            case SOUTH:
-                if (!isNotOutOfArray(x, y + 1)) return false;
-                else if (maze.getMaze()[y + 1][x] >= 1) return false;
-                nextX = x;
-                nextY = y + 1;
-                break;
-            case WEST:
-                if (!isNotOutOfArray(x - 1, y)) return false;
-                else if (maze.getMaze()[y][x - 1] >= 1) return false;
-                nextX = x - 1;
-                nextY = y;
-                break;
-            case EAST:
-                if (!isNotOutOfArray(x + 1, y)) return false;
-                else if (maze.getMaze()[y][x + 1] >= 1) return false;
-                nextX = x + 1;
-                nextY = y;
-                break;
-
-        }
-
-        // 다음가는 곳이 벽이라면?
-        if (maze.getMaze()[nextY][nextX] == 1) {
-            return false;
-        } else {
-            return true;
-        }
-
+    //해당 좌표에서 해당방향으로 진행가능 여부를 반환
+    private boolean GetNextStep(int x, int y, Direction dir) {
+        if (!isNotOutOfArray(dir.getNextX(x), dir.getNextY(y))) return false;
+        else if (maze.getMaze()[dir.getNextY(y)][dir.getNextX(x)] >= 1) return false;
+        nextX = dir.getNextX(x);
+        nextY = dir.getNextY(y);
+        return true;
     }
 }

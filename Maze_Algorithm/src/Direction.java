@@ -5,7 +5,6 @@ public enum Direction {
     SOUTH(0, 1),
     WEST(-1, 0);
 
-
     private int x;
     private int y;
 
@@ -17,8 +16,9 @@ public enum Direction {
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
     }
+    public int getNextX(int px){ return px + x; }
+    public int getNextY(int py){ return py + y; }
 }

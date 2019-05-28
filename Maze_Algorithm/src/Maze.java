@@ -49,6 +49,30 @@ public class Maze {
     }
 
     public void printMaze() {
+        System.out.println("[원본 미로]");
+        for (int i = 0; i < ySize; i++) {
+            for (int j = 0; j < xSize; j++) {
+                switch (maze[i][j]) {
+                    case 0:
+                        System.out.print("   ");
+                        break;
+                    case 1:
+                        System.out.print(" ■ ");
+                        break;
+                    case 2:
+                        System.out.print("   ");
+                        break;
+                    case 3:
+                        System.out.print("   ");
+                        break;
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void printResult() {
+        System.out.println("[결과 출력]");
         for (int i = 0; i < ySize; i++) {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
@@ -59,10 +83,10 @@ public class Maze {
                         System.out.print("   ");
                         break;
                     case 2:
-                        System.out.print(" 2 ");
+                        System.out.print(" ■ ");
                         break;
                     case 3:
-                        System.out.print(" 3 ");
+                        System.out.print(" □ ");
                         break;
                 }
             }

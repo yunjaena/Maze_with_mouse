@@ -61,23 +61,18 @@ public class Mouse implements Event {
     @Override
     public void useMana(int x, int y) {
         mana -= USING_MANA;
-        System.out.print("(" + x + "," + y + ") Teleport");
-        printMouseState();
+        /*system.out.print("(" + x + "," + y + ") Teleport");
+        printMouseState();*/
     }
 
     @Override
     public void moveMouse(int x, int y) {
         count++;
-        System.out.print("(" + x + "," + y + ")");
-        printMouseState();
+        /*System.out.print("(" + x + "," + y + ")");
+        printMouseState();*/
     }
 
     public void printMouseState() {
-        System.out.println("Mouse{" +
-                "energy=" + energy +
-                String.format(", mana= %.1f", mana) +
-                ", count=" + count +
-                '}');
-
+       System.out.println("[" + "energy :" + energy + String.format(", mana : %.1f", mana) + ", count :" + count + "]");
     }
 }
