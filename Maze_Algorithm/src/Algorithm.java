@@ -43,7 +43,7 @@ public class Algorithm {
             Branch.push(new Point(x, y));
         }
         //출구 발견 시 종료
-        if ((x != startX && y != startY) && (y == 0) || (x == 0) || (x == maze.getxSize() - 1) || (y == maze.getySize())) {
+        if ((x != startX && y != startY) && (y == 0) || (x == 0) || (x == maze.getxSize() - 1) || (y == maze.getySize()-1)) {
             maze.getMaze()[y][x] = 2;
             return true;
         }
@@ -61,7 +61,6 @@ public class Algorithm {
             //경로 스택의 내용을 뽑아가며 분기점까지 되돌아감
             while (true) {
                 //막다른 길에서 최근 분기까지의 거리 체크
-                if(isEndOfMaze) d++;
                 int rx = Route.peek().getX();
                 int ry = Route.pop().getY();
                 //텔레포트를 사용한다면 쥐는 움직이지 않음
