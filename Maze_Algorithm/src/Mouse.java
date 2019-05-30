@@ -8,6 +8,7 @@ public class Mouse implements Event {
     private Algorithm algorithm;
     private int count = 0;
     public static final double USING_MANA = 5.0;
+    private Point deadPoint;
 
     public Mouse(Maze maze) {
         this.maze = maze;
@@ -34,6 +35,12 @@ public class Mouse implements Event {
         this.mana = mana;
     }
 
+    public int getCount(){ return count; }
+
+    @Override
+    public void setDeadPoint(int x, int y){ deadPoint = new Point(x, y); }
+
+    public Point getDeadPoint(){ return deadPoint;}
     public boolean isTeleportPossible() {
         return mana >= USING_MANA;
     }
@@ -41,8 +48,7 @@ public class Mouse implements Event {
     @Override
     public boolean isMouseDIe() {
         if (energy < 1) {
-            System.out.println("쥐가 죽었습니다");
-            return  true;
+            return true;
         }
         else
             return  false;
@@ -61,7 +67,7 @@ public class Mouse implements Event {
     @Override
     public void useMana(int x, int y) {
         mana -= USING_MANA;
-        /*system.out.print("(" + x + "," + y + ") Teleport");
+        /*System.out.print("(" + x + "," + y + ") Teleport");
         printMouseState();*/
     }
 

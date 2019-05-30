@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,9 +16,9 @@ public class Maze {
     public Maze(String fileName)
     {
         this.fileName = fileName;
-        reaedMaze();
+        readMaze();
     }
-    public void reaedMaze() {
+    public void readMaze() {
         ArrayList<String> readMaze = new ArrayList<>();
         try {
             File file = new File(fileName);
@@ -70,7 +72,31 @@ public class Maze {
             System.out.println();
         }
     }
-
+    public void writeMaze(int energy, int count, boolean isMouseDead, Point deadPoint){
+        int i, j;
+        try {
+            File file = new File("result.txt");
+            BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
+            StringBuilder line = new StringBuilder("");
+            for (i = 0; i < ySize; i++) {
+                for (j = 0; j < xSize; j++) {
+                    if(maze[i][j] == 2) line.append("O");
+                    else line.append("  ");
+                    if(isMouseDead && (i == deadPoint.getY() && j == deadPoint.getX())) break;
+                }
+                line.append("\n");
+                if(isMouseDead && (i == deadPoint.getY() && j == deadPoint.getX())) break;
+            }
+            if(isMouseDead) line.append("출구를 못 찾았습니다.\n");
+            line.append("[Initial Energy : " + Integer.toString(energy + count) + "]\n");
+            line.append("[Wasted Energy : " + Integer.toString(count) + "]\n");
+            line.append("[Remain Energy : " + Integer.toString(energy) + "]");
+            bufWriter.write(line.toString());
+            bufWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
     public void printResult() {
         System.out.println("[결과 출력]");
         for (int i = 0; i < ySize; i++) {
@@ -93,6 +119,8 @@ public class Maze {
             System.out.println();
         }
     }
+
+
 
     public int[][] getMaze() {
         return maze;

@@ -12,4 +12,6 @@ public interface Event {
 
     boolean isMouseDIe();
 
+    void setDeadPoint(int x, int y);
+
 }

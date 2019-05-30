@@ -29,8 +29,6 @@ public class Algorithm {
 
 
     private boolean MoveTo(int x, int y) {
-        //에너지 소진시 쥐 사망
-        if (mouseEvent.isMouseDIe()) return true;
         //경로에 저장 후 쥐 이동
         Route.push(new Point(x, y));
         mouseEvent.moveMouse(x, y);
@@ -49,6 +47,12 @@ public class Algorithm {
         }
         //지나온 길 표시
         maze.getMaze()[y][x] = 2;
+        //에너지 소진시 쥐 사망
+        if (mouseEvent.isMouseDIe()){
+            System.out.println("쥐가 죽었습니다");
+            mouseEvent.setDeadPoint(x, y);
+            return true;
+        }
         //막다른 길 도달 시 행동
         if (isEndMaze(x, y)) {
             int d = 0;
@@ -65,10 +69,15 @@ public class Algorithm {
                 int ry = Route.pop().getY();
                 //텔레포트를 사용한다면 쥐는 움직이지 않음
                 if(!usingTeleport) {
-                    if (mouseEvent.isMouseDIe()) return true;
                     mouseEvent.moveMouse(rx, ry);
                     mouseEvent.increaseMana();
                     mouseEvent.decreaseEnergy();
+                    //에너지 소진시 쥐 사망
+                    if (mouseEvent.isMouseDIe()){
+                        System.out.println("쥐가 죽었습니다");
+                        mouseEvent.setDeadPoint(rx, ry);
+                        return true;
+                    }
                 }
                 //분기점 도달시 분기 유효성 검사 실시
                 if (!Branch.empty() && (rx == Branch.peek().getX() && ry == Branch.peek().getY())) {
