@@ -9,9 +9,14 @@ public class Maze {
     private int maze[][];
     private int xSize;
     private int ySize;
+    private String fileName;
 
-    public void reaedMaze(String fileName) {
-
+    public Maze(String fileName)
+    {
+        this.fileName = fileName;
+        reaedMaze();
+    }
+    public void reaedMaze() {
         ArrayList<String> readMaze = new ArrayList<>();
         try {
             File file = new File(fileName);
@@ -19,6 +24,7 @@ public class Maze {
             BufferedReader bufReader = new BufferedReader(filereader);
             String line = "";
             while ((line = bufReader.readLine()) != null) {
+                line = line.replace(" ","");
                 readMaze.add(line);
             }
             bufReader.close();
@@ -43,6 +49,7 @@ public class Maze {
     }
 
     public void printMaze() {
+        System.out.println("[원본 미로]");
         for (int i = 0; i < ySize; i++) {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
@@ -53,10 +60,33 @@ public class Maze {
                         System.out.print(" ■ ");
                         break;
                     case 2:
-                        System.out.print(" - ");
+                        System.out.print("   ");
                         break;
                     case 3:
-                        System.out.print(" ☆ ");
+                        System.out.print("   ");
+                        break;
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void printResult() {
+        System.out.println("[결과 출력]");
+        for (int i = 0; i < ySize; i++) {
+            for (int j = 0; j < xSize; j++) {
+                switch (maze[i][j]) {
+                    case 0:
+                        System.out.print("   ");
+                        break;
+                    case 1:
+                        System.out.print("   ");
+                        break;
+                    case 2:
+                        System.out.print(" ■ ");
+                        break;
+                    case 3:
+                        System.out.print(" □ ");
                         break;
                 }
             }
