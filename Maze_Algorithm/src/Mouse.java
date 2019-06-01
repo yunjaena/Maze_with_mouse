@@ -78,6 +78,7 @@ public class Mouse implements Event {
         printMouseState();*/
     }
 
+    @Override
     public void printMouseState() {
         System.out.println("[" + "energy :" + energy + String.format(", mana : %.1f", mana) + ", count :" + count + "]");
     }

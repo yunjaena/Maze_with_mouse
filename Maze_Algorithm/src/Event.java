@@ -14,4 +14,6 @@ public interface Event {
 
     void setDeadPoint(int x, int y);
 
+    void printMouseState();
+
 }

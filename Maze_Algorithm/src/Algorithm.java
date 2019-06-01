@@ -2,13 +2,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Algorithm {
-    private int startX;
-    private int startY;
-    private int nextX = 1, nextY = 0;
+    private int startX, startY, nextX, nextY;
     private Maze maze;
     private Event mouseEvent;
-    private Stack<Point> Branch;
-    private Stack<Point> Route;
+    private Stack<Point> Branch, Route;
     private ArrayList<Integer> Distance;
 
     public Algorithm(Maze maze, Event event) {
@@ -31,15 +28,13 @@ public class Algorithm {
     private boolean MoveTo(int x, int y) {
         //경로에 저장 후 쥐 이동
         Route.push(new Point(x, y));
-        mouseEvent.moveMouse(x, y);
-        if(!teleportPossible() || !isEndMaze(x,y)) {
-            mouseEvent.increaseMana();
-            mouseEvent.decreaseEnergy();
-        }
         //분기점이라면 분기 스택에도 저장
-        if (isBranch(x, y)) {
-            Branch.push(new Point(x, y));
-        }
+        if (isBranch(x, y)) Branch.push(new Point(x, y));
+
+        mouseEvent.moveMouse(x, y);
+        mouseEvent.increaseMana();
+        mouseEvent.decreaseEnergy();
+
         //출구 발견 시 종료
         if ((x != startX && y != startY) && (y == 0) || (x == 0) || (x == maze.getxSize() - 1) || (y == maze.getySize()-1)) {
             maze.getMaze()[y][x] = 2;
@@ -56,7 +51,6 @@ public class Algorithm {
         //막다른 길 도달 시 행동
         if (isEndMaze(x, y)) {
             int d = 0;
-            boolean isEndOfMaze = true;
             //현 시점에서 텔레포트 사용 여부 결정
             boolean usingTeleport = teleportPossible();
             //막다른 길의 마지막 칸을 버리고 3(막다른 길)로 표시
@@ -65,6 +59,8 @@ public class Algorithm {
             //경로 스택의 내용을 뽑아가며 분기점까지 되돌아감
             while (true) {
                 //막다른 길에서 최근 분기까지의 거리 체크
+                d++;
+
                 int rx = Route.peek().getX();
                 int ry = Route.pop().getY();
                 //텔레포트를 사용한다면 쥐는 움직이지 않음
@@ -85,7 +81,6 @@ public class Algorithm {
                     if (deleteBranch(rx, ry)) {
                         Branch.pop();
                         maze.getMaze()[ry][rx] = 3;
-                        isEndOfMaze = false;
                         //현재 분기가 폐쇄됬으므로 현재 분기를 제외한 가장 최근의 분기를 향해 되돌아감
                         continue;
                     }
@@ -111,7 +106,7 @@ public class Algorithm {
             }
         }
         //다음 길 탐색
-        for (Direction dir : Direction.values()) {
+        for (Direction dir : Direction.searchOrder(maze, x, y)) {
             if (!GetNextStep(x, y, dir)) {
                 continue;
             }

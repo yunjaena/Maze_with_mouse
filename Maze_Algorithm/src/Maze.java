@@ -11,11 +11,13 @@ public class Maze {
     private int maze[][];
     private int xSize;
     private int ySize;
+    private Point goal;
     private String fileName;
 
     public Maze(String fileName)
     {
         this.fileName = fileName;
+        goal = new Point(1, 0);
         readMaze();
     }
     public void readMaze() {
@@ -36,7 +38,6 @@ public class Maze {
             System.out.println(e);
         }
 
-
         xSize = readMaze.get(0).length();
         ySize = readMaze.size();
 
@@ -45,9 +46,9 @@ public class Maze {
         for (int i = 0; i < readMaze.size(); i++) {
             for (int j = 0; j < xSize; j++) {
                 maze[i][j] = Character.getNumericValue(readMaze.get(i).charAt(j));
+                if((maze[i][j] == 0) && (i == 0 || j == 0 || i == ySize - 1 || j == xSize - 1)) goal = new Point(j, i);
             }
         }
-
     }
 
     public void printMaze() {
@@ -81,16 +82,15 @@ public class Maze {
             for (i = 0; i < ySize; i++) {
                 for (j = 0; j < xSize; j++) {
                     if(maze[i][j] == 2) line.append("O");
+                    else if(i == deadPoint.getY() && j == deadPoint.getX()) line.append("X");
                     else line.append("  ");
-                    if(isMouseDead && (i == deadPoint.getY() && j == deadPoint.getX())) break;
                 }
                 line.append("\n");
-                if(isMouseDead && (i == deadPoint.getY() && j == deadPoint.getX())) break;
             }
             if(isMouseDead) line.append("출구를 못 찾았습니다.\n");
-            line.append("[Initial Energy : " + Integer.toString(energy + count) + "]\n");
-            line.append("[Wasted Energy : " + Integer.toString(count) + "]\n");
-            line.append("[Remain Energy : " + Integer.toString(energy) + "]");
+            line.append("[Initial Energy : " + (energy + count) + "]\n");
+            line.append("[Wasted Energy : " + count + "]\n");
+            line.append("[Remain Energy : " + energy + "]");
             bufWriter.write(line.toString());
             bufWriter.close();
         } catch (IOException e) {
@@ -145,5 +145,7 @@ public class Maze {
     public void setySize(int ySize) {
         this.ySize = ySize;
     }
+
+    public Point getGoal() { return goal; }
 
 }
