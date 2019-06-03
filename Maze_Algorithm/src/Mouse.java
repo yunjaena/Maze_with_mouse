@@ -8,7 +8,6 @@ public class Mouse implements Event {
     private Algorithm algorithm;
     private int count = 0;
     public static final double USING_MANA = 5.0;
-    private Point deadPoint;
 
     public Mouse(Maze maze) {
         this.maze = maze;
@@ -37,10 +36,6 @@ public class Mouse implements Event {
 
     public int getCount(){ return count; }
 
-    @Override
-    public void setDeadPoint(int x, int y){ deadPoint = new Point(x, y); }
-
-    public Point getDeadPoint(){ return deadPoint;}
     public boolean isTeleportPossible() {
         return mana >= USING_MANA;
     }

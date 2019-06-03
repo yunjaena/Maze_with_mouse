@@ -45,7 +45,6 @@ public class Algorithm {
         //에너지 소진시 쥐 사망
         if (mouseEvent.isMouseDIe()){
             System.out.println("쥐가 죽었습니다");
-            mouseEvent.setDeadPoint(x, y);
             return true;
         }
         //막다른 길 도달 시 행동
@@ -71,7 +70,6 @@ public class Algorithm {
                     //에너지 소진시 쥐 사망
                     if (mouseEvent.isMouseDIe()){
                         System.out.println("쥐가 죽었습니다");
-                        mouseEvent.setDeadPoint(rx, ry);
                         return true;
                     }
                 }

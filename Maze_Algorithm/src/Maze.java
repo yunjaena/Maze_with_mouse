@@ -73,7 +73,7 @@ public class Maze {
             System.out.println();
         }
     }
-    public void writeMaze(int energy, int count, boolean isMouseDead, Point deadPoint){
+    public void writeMaze(int energy, int count, boolean isMouseDead){
         int i, j;
         try {
             File file = new File("result.txt");
@@ -82,7 +82,6 @@ public class Maze {
             for (i = 0; i < ySize; i++) {
                 for (j = 0; j < xSize; j++) {
                     if(maze[i][j] == 2) line.append("O");
-                    else if(i == deadPoint.getY() && j == deadPoint.getX()) line.append("X");
                     else line.append("  ");
                 }
                 line.append("\n");
