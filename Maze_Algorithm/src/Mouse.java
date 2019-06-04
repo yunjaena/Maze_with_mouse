@@ -4,13 +4,11 @@ public class Mouse implements Event {
 
     private int energy;
     private double mana;
-    private Maze maze;
     private Algorithm algorithm;
     private int count = 0;
     public static final double USING_MANA = 5.0;
 
     public Mouse(Maze maze) {
-        this.maze = maze;
         energy = maze.getxSize() * maze.getySize() * 2;
         algorithm = new Algorithm(maze, this);
         printMouseState();
@@ -36,6 +34,7 @@ public class Mouse implements Event {
 
     public int getCount(){ return count; }
 
+    public Algorithm getAlgorithm() { return algorithm; }
     public boolean isTeleportPossible() {
         return mana >= USING_MANA;
     }

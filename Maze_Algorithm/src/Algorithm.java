@@ -5,14 +5,16 @@ public class Algorithm {
     private int startX, startY, nextX, nextY;
     private Maze maze;
     private Event mouseEvent;
-    private Stack<Point> Branch, Route;
+    private Stack<Point> Branch, shortestPath, path, teleportSpot;
     private ArrayList<Integer> Distance;
 
     public Algorithm(Maze maze, Event event) {
         this.maze = maze;
         mouseEvent = event;
         Branch = new Stack<>(); // 분기점을 저장하는 스택
-        Route = new Stack<>(); // 지나온 경로를 저장하는 스택, 최종적으로는 최단 경로 저장
+        shortestPath = new Stack<>(); // 최단 경로를 저장하는 스택
+        path = new Stack<>(); // 지나온 경로를 저장하는 스택
+        teleportSpot = new Stack<>(); // 텔레포트 지접을 저장
         Distance = new ArrayList<>(); // 막다른 길로부터 가장 최근 분기까지의 거리를 저장
     }
 
@@ -27,10 +29,11 @@ public class Algorithm {
 
     private boolean MoveTo(int x, int y) {
         //경로에 저장 후 쥐 이동
-        Route.push(new Point(x, y));
+        shortestPath.push(new Point(x, y));
+        path.push(new Point(x, y));
         //분기점이라면 분기 스택에도 저장
         if (isBranch(x, y)) Branch.push(new Point(x, y));
-
+        if(maze.getLowBound() < y) maze.setLowBound(y);
         mouseEvent.moveMouse(x, y);
         mouseEvent.increaseMana();
         mouseEvent.decreaseEnergy();
@@ -52,16 +55,21 @@ public class Algorithm {
             int d = 0;
             //현 시점에서 텔레포트 사용 여부 결정
             boolean usingTeleport = teleportPossible();
+            if(usingTeleport){
+                teleportSpot.push(new Point(x,y));
+                System.out.print(x + ", " + y);
+            }
+
             //막다른 길의 마지막 칸을 버리고 3(막다른 길)로 표시
-            Route.pop();
+            shortestPath.pop();
             maze.getMaze()[y][x] = 3;
             //경로 스택의 내용을 뽑아가며 분기점까지 되돌아감
             while (true) {
                 //막다른 길에서 최근 분기까지의 거리 체크
                 d++;
 
-                int rx = Route.peek().getX();
-                int ry = Route.pop().getY();
+                int rx = shortestPath.peek().getX();
+                int ry = shortestPath.pop().getY();
                 //텔레포트를 사용한다면 쥐는 움직이지 않음
                 if(!usingTeleport) {
                     mouseEvent.moveMouse(rx, ry);
@@ -72,6 +80,8 @@ public class Algorithm {
                         System.out.println("쥐가 죽었습니다");
                         return true;
                     }
+                    //되돌아 오는 과정 경로에 저장
+                    path.push(new Point(rx, ry));
                 }
                 //분기점 도달시 분기 유효성 검사 실시
                 if (!Branch.empty() && (rx == Branch.peek().getX() && ry == Branch.peek().getY())) {
@@ -84,7 +94,7 @@ public class Algorithm {
                     }
                     //분기 유지(유효한 분기의 경우)
                     else {
-                        Route.push(new Point(rx, ry));
+                        shortestPath.push(new Point(rx, ry));
                         maze.getMaze()[ry][rx] = 2;
                     }
                     //텔레포트 사용
@@ -92,6 +102,8 @@ public class Algorithm {
                         mouseEvent.useMana(rx,ry);
                         mouseEvent.increaseMana();
                         mouseEvent.decreaseEnergy();
+                        teleportSpot.push(new Point(rx, ry));
+                        System.out.println("  " + rx + ", " + ry);
                     }
                     //막다른 길에서 가장 가까운 분기까지의 거리를 저장
                     if(d > 2) Distance.add(d);
@@ -178,9 +190,9 @@ public class Algorithm {
     private int getDistance() {
         int d = 0, count;
         for (int i = Branch.size() - 1; i > -1; i--) {
-            for (int j = Route.size() - 1 - d; j > -1; j--) {
-                if ((Route.get(j).getX() == Branch.get(i).getX()) && (Route.get(j).getY() == Branch.get(i).getY())) {
-                    d = (Route.size() - j);
+            for (int j = shortestPath.size() - 1 - d; j > -1; j--) {
+                if ((shortestPath.get(j).getX() == Branch.get(i).getX()) && (shortestPath.get(j).getY() == Branch.get(i).getY())) {
+                    d = (shortestPath.size() - j);
                     break;
                 }
             }
@@ -211,4 +223,8 @@ public class Algorithm {
         nextY = dir.getNextY(y);
         return true;
     }
+
+    public Stack<Point> getPath(){ return path; }
+
+    public Stack<Point> getTeleportSpot(){ return teleportSpot; }
 }

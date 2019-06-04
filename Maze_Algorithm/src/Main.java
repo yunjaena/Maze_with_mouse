@@ -3,7 +3,7 @@ import generate_maze.MazeGenerator;
 public class Main {
     private static Mouse mouse;
     private static Maze maze;
-    private static final String FILE_NAME = "Maze1.txt";
+    private static final String FILE_NAME = "Maze2.txt";
     private static final int MAX_X = 50;
     private static final int MAX_Y = 50;
     public static void main(String[] args) throws Exception {
@@ -12,7 +12,8 @@ public class Main {
         maze.printMaze();
         mouse = new Mouse(maze);
         maze.printResult();
-        maze.writeMaze(mouse.getEnergy(), mouse.getCount(), mouse.isMouseDIe());
         mouse.printMouseState();
+        maze.writeMaze(mouse.getEnergy(), mouse.getCount(), mouse.isMouseDIe());
+        maze.writeRoute(mouse.getAlgorithm().getPath(), mouse.getAlgorithm().getTeleportSpot());
     }
 }

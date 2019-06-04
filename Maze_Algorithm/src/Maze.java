@@ -6,11 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Maze {
     private int maze[][];
     private int xSize;
     private int ySize;
+    private int lowBound;
     private Point goal;
     private String fileName;
 
@@ -57,16 +59,16 @@ public class Maze {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
                     case 0:
-                        System.out.print("    ");
+                        System.out.print("   ");
                         break;
                     case 1:
                         System.out.print(" ■ ");
                         break;
                     case 2:
-                        System.out.print("    ");
+                        System.out.print("   ");
                         break;
                     case 3:
-                        System.out.print("    ");
+                        System.out.print("   ");
                         break;
                 }
             }
@@ -78,10 +80,11 @@ public class Maze {
         try {
             File file = new File("result.txt");
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
-            StringBuilder line = new StringBuilder("");
-            for (i = 0; i < ySize; i++) {
+            StringBuilder line = new StringBuilder("[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장]\n[Input File = " + fileName + "]\n");
+            for (i = 0; i <= lowBound; i++) {
                 for (j = 0; j < xSize; j++) {
-                    if(maze[i][j] == 2) line.append("O");
+                    if(maze[i][j] == 2) line.append("O ");
+                    else if(maze[i][j] == 3) line.append("X ");
                     else line.append("  ");
                 }
                 line.append("\n");
@@ -96,16 +99,46 @@ public class Maze {
             System.out.println(e);
         }
     }
+
+    public void writeRoute(Stack<Point> path, Stack<Point> teleportSpot){
+        int i, j = 0, cnt = 0;
+        try {
+            File file = new File("path.txt");
+            BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
+            StringBuilder line = new StringBuilder("[Input File = " + fileName + "]\n");
+            for (i = 0; i < path.size(); i++) {
+                cnt++;
+                line.append("(" + path.get(i).getX() + ", " + path.get(i).getY() + ") ");
+                if((j < teleportSpot.size()) && ((path.get(i).getX() == teleportSpot.get(j).getX()) && (path.get(i).getY() == teleportSpot.get(j).getY()))){
+                    line.append("\n\n");
+                    line.append("(" + teleportSpot.get(j).getX() + ", " + teleportSpot.get(j).getY() + ") --> ("  + teleportSpot.get(j+1).getX() + ", " + teleportSpot.get(j+1).getY() + ") Teleport\n\n");
+                    j += 2;
+                    cnt = 0;
+                }
+
+                    if(cnt == 10){
+                        line.append("\n\n");
+                        cnt = 0;
+                    }
+
+            }
+            line.append("\n");
+            bufWriter.write(line.toString());
+            bufWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
     public void printResult() {
         System.out.println("[결과 출력]");
-        for (int i = 0; i < ySize; i++) {
+        for (int i = 0; i <= lowBound; i++) {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
                     case 0:
-                        System.out.print("    ");
+                        System.out.print("   ");
                         break;
                     case 1:
-                        System.out.print("    ");
+                        System.out.print("   ");
                         break;
                     case 2:
                         System.out.print(" ■ ");
@@ -146,5 +179,9 @@ public class Maze {
     }
 
     public Point getGoal() { return goal; }
+
+    public int getLowBound(){ return lowBound; }
+
+    public void setLowBound(int lowBound){ this.lowBound = lowBound; }
 
 }
