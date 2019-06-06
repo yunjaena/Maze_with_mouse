@@ -57,7 +57,6 @@ public class Algorithm {
             boolean usingTeleport = teleportPossible();
             if(usingTeleport){
                 teleportSpot.push(new Point(x,y));
-                System.out.print(x + ", " + y);
             }
 
             //막다른 길의 마지막 칸을 버리고 3(막다른 길)로 표시
