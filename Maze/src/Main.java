@@ -9,7 +9,7 @@ public class Main {
     private static final int MAX_Y = 50;
 
     public static void main(String[] args) throws Exception {
-        //MazeGenerator.saveMaze(FILE_NAME,MAX_X,MAX_Y);
+//        MazeGenerator.saveMaze(FILE_NAME,MAX_X,MAX_Y);
         maze = new Maze(FILE_NAME, PRINT_TYPE);
         maze.printMaze();
         mouse = new Mouse(maze);
