@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Maze {
+    private int printType;
     private int maze[][];
     private int xSize;
     private int ySize;
@@ -16,12 +17,18 @@ public class Maze {
     private Point goal;
     private String fileName;
 
-    public Maze(String fileName)
+    public Maze(String fileName, int printType)
     {
         this.fileName = fileName;
+        this.printType = printType;
         goal = new Point(1, 0);
         readMaze();
     }
+
+    public void setPrintType(int printType) {
+        this.printType = printType;
+    }
+
     public void readMaze() {
         ArrayList<String> readMaze = new ArrayList<>();
         try {
@@ -59,16 +66,16 @@ public class Maze {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
                     case 0:
-                        System.out.print("   ");
+                        System.out.print(Print.printBlank(printType));
                         break;
                     case 1:
                         System.out.print(" ■ ");
                         break;
                     case 2:
-                        System.out.print("   ");
+                        System.out.print(Print.printBlank(printType));
                         break;
                     case 3:
-                        System.out.print("   ");
+                        System.out.print(Print.printBlank(printType));
                         break;
                 }
             }
@@ -136,10 +143,10 @@ public class Maze {
             for (int j = 0; j < xSize; j++) {
                 switch (maze[i][j]) {
                     case 0:
-                        System.out.print("   ");
+                        System.out.print(Print.printBlank(printType));
                         break;
                     case 1:
-                        System.out.print("   ");
+                        System.out.print(Print.printBlank(printType));
                         break;
                     case 2:
                         System.out.print(" ■ ");
