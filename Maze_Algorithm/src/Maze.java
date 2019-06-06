@@ -75,24 +75,25 @@ public class Maze {
             System.out.println();
         }
     }
-    public void writeMaze(int energy, int count, boolean isMouseDead){
+    public void writeMaze(int energy, int count, double mana, boolean isMouseDead){
         int i, j;
+        double remainMana = (Math.round(mana*10))/10.0, stackedMana = count * 0.1, teleportUsageCount = Math.round((stackedMana - remainMana) / 5.0);
         try {
             File file = new File("result.txt");
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
-            StringBuilder line = new StringBuilder("[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장]\n[Input File = " + fileName + "]\n");
+            StringBuilder line = new StringBuilder("[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장]\n[Input File = " + fileName + "]\r\n");
             for (i = 0; i <= lowBound; i++) {
                 for (j = 0; j < xSize; j++) {
                     if(maze[i][j] == 2) line.append("O ");
                     else if(maze[i][j] == 3) line.append("X ");
                     else line.append("  ");
                 }
-                line.append("\n");
+                line.append("\r\n");
             }
-            if(isMouseDead) line.append("출구를 못 찾았습니다.\n");
-            line.append("[Initial Energy : " + (energy + count) + "]\n");
-            line.append("[Wasted Energy : " + count + "]\n");
-            line.append("[Remain Energy : " + energy + "]");
+            if(isMouseDead) line.append("출구를 못 찾았습니다.\r\n");
+            line.append("[Initial Energy : " + (energy + count) + ", Stacked Mana : " + stackedMana+ "]\r\n");
+            line.append("[Wasted Energy : " + count + ", Teleport usage count : " + (int)teleportUsageCount + "]\r\n");
+            line.append("[Remain Energy : " + energy + ", Remain Mana : " + remainMana + "]\r\n");
             bufWriter.write(line.toString());
             bufWriter.close();
         } catch (IOException e) {
@@ -105,24 +106,24 @@ public class Maze {
         try {
             File file = new File("path.txt");
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
-            StringBuilder line = new StringBuilder("[Input File = " + fileName + "]\n");
+            StringBuilder line = new StringBuilder("[Input File = " + fileName + "]\r\n");
             for (i = 0; i < path.size(); i++) {
                 cnt++;
                 line.append("(" + path.get(i).getX() + ", " + path.get(i).getY() + ") ");
                 if((j < teleportSpot.size()) && ((path.get(i).getX() == teleportSpot.get(j).getX()) && (path.get(i).getY() == teleportSpot.get(j).getY()))){
-                    line.append("\n\n");
-                    line.append("(" + teleportSpot.get(j).getX() + ", " + teleportSpot.get(j).getY() + ") --> ("  + teleportSpot.get(j+1).getX() + ", " + teleportSpot.get(j+1).getY() + ") Teleport\n\n");
+                    line.append("\r\n\r\n");
+                    line.append("(" + teleportSpot.get(j).getX() + ", " + teleportSpot.get(j).getY() + ") --> ("  + teleportSpot.get(j+1).getX() + ", " + teleportSpot.get(j+1).getY() + ") Teleport\r\n\r\n");
                     j += 2;
                     cnt = 0;
                 }
 
                     if(cnt == 10){
-                        line.append("\n\n");
+                        line.append("\r\n\r\n");
                         cnt = 0;
                     }
 
             }
-            line.append("\n");
+            line.append("\r\n");
             bufWriter.write(line.toString());
             bufWriter.close();
         } catch (IOException e) {

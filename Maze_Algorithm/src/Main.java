@@ -13,7 +13,7 @@ public class Main {
         mouse = new Mouse(maze);
         maze.printResult();
         mouse.printMouseState();
-        maze.writeMaze(mouse.getEnergy(), mouse.getCount(), mouse.isMouseDIe());
+        maze.writeMaze(mouse.getEnergy(), mouse.getCount(), mouse.getMana(), mouse.isMouseDIe());
         maze.writeRoute(mouse.getAlgorithm().getPath(), mouse.getAlgorithm().getTeleportSpot());
     }
 }

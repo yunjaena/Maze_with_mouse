@@ -100,10 +100,7 @@ public class Algorithm {
                     //텔레포트 사용
                     if(usingTeleport){
                         mouseEvent.useMana(rx,ry);
-                        mouseEvent.increaseMana();
-                        mouseEvent.decreaseEnergy();
                         teleportSpot.push(new Point(rx, ry));
-                        System.out.println("  " + rx + ", " + ry);
                     }
                     //막다른 길에서 가장 가까운 분기까지의 거리를 저장
                     if(d > 2) Distance.add(d);
