@@ -88,11 +88,12 @@ public class Maze {
         try {
             File file = new File("result.txt");
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(file));
-            StringBuilder line = new StringBuilder("[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장]\n[Input File = " + fileName + "]\r\n");
-            for (i = 0; i <= lowBound; i++) {
+            StringBuilder line = new StringBuilder("[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장 * : 최단 경로, - : 되돌아온 길]\n[Input File = " + fileName + "]\r\n");
+            for (i = 0; i < ySize; i++) {
                 for (j = 0; j < xSize; j++) {
-                    if(maze[i][j] == 2) line.append("O ");
-                    else if(maze[i][j] == 3) line.append("X ");
+                    if(maze[i][j] == 1) line.append("1 ");
+                    else if(maze[i][j] == 2) line.append("* ");
+                    else if(maze[i][j] == 3) line.append("- ");
                     else line.append("  ");
                 }
                 line.append("\r\n");
