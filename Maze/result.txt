@@ -1,0 +1,56 @@
+[고정폭 글꼴(굴림체, 돋움체 등) 사용 권장]
+[Input File = Maze1.txt]
+  O                                                                                                   
+  O                                                                                                   
+  O                                                                                                   
+  O                                                                                                   
+  O                                                                                                   
+  O O O                                                                                               
+      O                                                                                               
+      O O O O O O O O O                                                                               
+                      O                                                                               
+                      O O O                                                                           
+                          O                                                                           
+                          O                                                                           
+                          O                                                                           
+                          O O O                                                                       
+                              O                                                                       
+                              O O O                                                                   
+                                  O                                                                   
+                                  O O O                                                               
+                                      O                                                               
+                                      O                                                               
+                                      O                                                               
+                                      O                                                               
+                                      O                                                               
+                                      O O O                                                           
+                                          O                                                           
+                                          O                                                           
+                                          O                                                           
+                                          O O O                                                       
+                                              O                                                       
+                                              O O O                                                   
+                                                  O                                                   
+                                                  O O O                                               
+                                                      O                                               
+                                                      O                                               
+                                                      O                                               
+                                                      O                                               
+                                                      O                                               
+                                                      O O O O O                                       
+                                                              O                                       
+                                                              O O O O O                               
+                                                                      O                               
+                                                                      O O O O O O O                   
+                                                                                  O                   
+                                                                                  O O O               
+                                                                                      O               
+                                                                                      O O O O O O O   
+                                                                                                  O   
+                                                                                                  O   
+                                                                                                  O   
+                                                                                                  O   
+                                                                                                  O   
+[Initial Energy : 5202, Stacked Mana : 9.9]
+[Wasted Energy : 99, Teleport usage count : 0]
+[Remain Energy : 5103, Remain Mana : 9.9]
